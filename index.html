@@ -71,6 +71,18 @@ https://zimjs.com/zapps
 	                //     socket.emit('playDrum');
 	                // });
 
+					
+					// 检测晃动的阈值
+					const shakeThreshold = 25;
+
+					// 上次检测的时间
+					let lastTime = 0;
+
+					// 上次检测的加速度值
+					let lastX = null;
+					let lastY = null;
+					let lastZ = null;
+
 					if (typeof DeviceMotionEvent.requestPermission === 'function') {
 						// 这是iOS 13+ 设备
 						DeviceMotionEvent.requestPermission()
@@ -88,17 +100,6 @@ https://zimjs.com/zapps
 						window.addEventListener('devicemotion', handleMotion);
 						console.log("devicemotion listener added on non-iOS 13+ device");
 					}
-
-					// 检测晃动的阈值
-					const shakeThreshold = 25;
-
-					// 上次检测的时间
-					let lastTime = 0;
-
-					// 上次检测的加速度值
-					let lastX = null;
-					let lastY = null;
-					let lastZ = null;
 
 					function handleMotion(event) {
 						console.log("Handling devicemotion event");
