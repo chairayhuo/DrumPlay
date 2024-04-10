@@ -71,6 +71,24 @@ https://zimjs.com/zapps
 	                //     socket.emit('playDrum');
 	                // });
 
+					if (typeof DeviceMotionEvent.requestPermission === 'function') {
+						// 这是iOS 13+ 设备
+						DeviceMotionEvent.requestPermission()
+							.then(permissionState => {
+								if (permissionState === 'granted') {
+									window.addEventListener('devicemotion', handleMotion);
+									console.log("devicemotion listener added"); // 确认监听器已添加
+								} else {
+									alert("没有权限访问运动传感器");
+								}
+							})
+							.catch(console.error);
+					} else {
+						// 非iOS 13+ 设备
+						window.addEventListener('devicemotion', handleMotion);
+						console.log("devicemotion listener added on non-iOS 13+ device");
+					}
+
 					// 检测晃动的阈值
 					const shakeThreshold = 25;
 
@@ -82,40 +100,45 @@ https://zimjs.com/zapps
 					let lastY = null;
 					let lastZ = null;
 
-					function changeBackgroundColor() {
-					// 随机生成颜色
-					const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
-					document.body.style.backgroundColor = randomColor;
-					}
+					function handleMotion(event) {
+						console.log("Handling devicemotion event");
 
-					if (window.DeviceMotionEvent) {
-					window.addEventListener('devicemotion', function(event) {
-						const acceleration = event.accelerationIncludingGravity;
-						const currentTime = Date.now();
+						const currentTime = Date.now();		
 
 						if ((currentTime - lastTime) > 100) {
-						const deltaX = Math.abs(lastX - acceleration.x);
-						const deltaY = Math.abs(lastY - acceleration.y);
-						const deltaZ = Math.abs(lastZ - acceleration.z);
+							const acceleration = event.accelerationIncludingGravity;
+							let deltaX = 0, deltaY = 0, deltaZ = 0;
 
-						// 计算总的移动量（用以判断是否晃动）
-						const delta = deltaX + deltaY + deltaZ;
+							if (lastX !== null) {
+								deltaX = Math.abs(lastX - acceleration.x);
+								deltaY = Math.abs(lastY - acceleration.y);
+								deltaZ = Math.abs(lastZ - acceleration.z);
+							}
 
-						// 如果晃动强度足够大，则更改背景颜色
-						if (delta > shakeThreshold) {
-							changeBackgroundColor();
+							// 计算总的移动量（用以判断是否晃动）
+							const delta = deltaX + deltaY + deltaZ;
+
+							// 如果晃动强度足够大，则更改背景颜色
+							if (delta > shakeThreshold) {
+								changeBackgroundColor();
+							}
+
+							// 更新最后一次的加速度值和时间
+							lastX = acceleration.x;
+							lastY = acceleration.y;
+							lastZ = acceleration.z;
+							lastTime = currentTime;
 						}
-
-						// 更新最后一次的加速度值和时间
-						lastX = acceleration.x;
-						lastY = acceleration.y;
-						lastZ = acceleration.z;
-						lastTime = currentTime;
-						}
-					}, false);
-					} else {
-					alert("您的设备不支持晃动检测。");
 					}
+
+					function changeBackgroundColor() {
+						// 随机生成颜色
+						const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+						document.body.style.backgroundColor = randomColor;
+					}
+
+
+					
 
 	
 	  
