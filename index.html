@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Drum</title>
+        <title>Shake</title>
 
 <!--
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -42,7 +42,7 @@ https://zimjs.com/zapps
 
         <script type="module">
             import zim from "https://zimjs.org/cdn/015/zim_game";
-            // const assets = ["candy.png","drum.png","drum.mp3","https://fonts.googleapis.com/css2?family=Salsa"];
+            const assets = ["https://fonts.googleapis.com/css2?family=Salsa"];
             const path = "assets/";
             new Frame(FIT, 430, 932, dark, darker, ready, assets, path);
             function ready() {
@@ -71,7 +71,7 @@ https://zimjs.com/zapps
 	                //     socket.emit('playDrum');
 	                // });
 
-					
+
 					// 检测晃动的阈值
 					const shakeThreshold = 25;
 
@@ -137,11 +137,6 @@ https://zimjs.com/zapps
 						const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
 						document.body.style.backgroundColor = randomColor;
 					}
-
-
-					
-
-	
 	  
 	} // end runZapp
 
