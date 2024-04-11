@@ -85,7 +85,6 @@ https://zimjs.com/zapps
 					let lastZ = null;
 
 				requestButton.on("click", function() {
-					statusLabel.text = "clicked";
 					if (typeof DeviceMotionEvent.requestPermission === 'function') {
 						// 这是iOS 13+ 设备
 						DeviceMotionEvent.requestPermission()
