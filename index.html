@@ -42,7 +42,7 @@ https://zimjs.com/zapps
 
         <script type="module">
             import zim from "https://zimjs.org/cdn/015/zim_game";
-            const assets = ["https://fonts.googleapis.com/css2?family=Salsa"];
+            const assets = ["drum.mp3", "https://fonts.googleapis.com/css2?family=Salsa"];
             const path = "assets/";
             new Frame(FIT, 430, 932, dark, darker, ready, assets, path);
             function ready() {
@@ -56,6 +56,8 @@ https://zimjs.com/zapps
 	function runZapp() {
 	                // Given F, S, W, H or frame, stage, stageW, stageH   
 					// 创建状态标签
+					const drumSound = new Aud("drum.mp3");
+					
 					let statusLabel = new Label({
 						text: "Waiting for motion...",
 						size: 30,
@@ -85,12 +87,12 @@ https://zimjs.com/zapps
 					let lastZ = null;
 
 				requestButton.on("click", function() {
-					if (navigator.vibrate) {
-						// 震动500毫秒
-						navigator.vibrate(500);
-					} else {
-						alert("Vibration not supported");
-					}
+					// if (navigator.vibrate) {
+					// 	// 震动500毫秒
+					// 	navigator.vibrate(500);
+					// } else {
+					// 	alert("Vibration not supported");
+					// }
 					if (typeof DeviceMotionEvent.requestPermission === 'function') {
 						// 这是iOS 13+ 设备
 						DeviceMotionEvent.requestPermission()
@@ -135,6 +137,7 @@ https://zimjs.com/zapps
 							// 如果晃动强度足够大，则更改背景颜色
 							if (delta > shakeThreshold) {
 								changeBackgroundColor();
+								drumSound.play();
 								statusLabel.text = "Shake detected! Color changed"; // 显示文本
 								new Label({
 									text: "Shake detected!",
