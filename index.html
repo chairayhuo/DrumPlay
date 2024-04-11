@@ -71,7 +71,6 @@ https://zimjs.com/zapps
 	                //     socket.emit('playDrum');
 	                // });
 
-
 					// 检测晃动的阈值
 					const shakeThreshold = 25;
 
@@ -90,19 +89,25 @@ https://zimjs.com/zapps
 								if (permissionState === 'granted') {
 									window.addEventListener('devicemotion', handleMotion);
 									console.log("devicemotion listener added"); // 确认监听器已添加
+									document.getElementById('status').textContent = "Permission granted.";
 								} else {
 									alert("没有权限访问运动传感器");
+									document.getElementById('status').textContent = "Permission denied.";
 								}
 							})
-							.catch(console.error);
+							.catch(error=>{
+								document.getElementById('status').textContent = `Permission error: ${error}`;
+							});
 					} else {
 						// 非iOS 13+ 设备
 						window.addEventListener('devicemotion', handleMotion);
 						console.log("devicemotion listener added on non-iOS 13+ device");
+						document.getElementById('status').textContent = "Permission API not needed or not supported.";
 					}
 
 					function handleMotion(event) {
 						console.log("Handling devicemotion event");
+						const statusElement = document.getElementById('status'); // 确保你的HTML中有这个元素
 
 						const currentTime = Date.now();		
 
@@ -122,6 +127,9 @@ https://zimjs.com/zapps
 							// 如果晃动强度足够大，则更改背景颜色
 							if (delta > shakeThreshold) {
 								changeBackgroundColor();
+								statusElement.textContent = `Shake detected! Color changed.`; // 显示文本
+							}else{
+								statusElement.textContent = `Shake detected! But not strong enough.`; // 显示文本
 							}
 
 							// 更新最后一次的加速度值和时间
@@ -129,6 +137,8 @@ https://zimjs.com/zapps
 							lastY = acceleration.y;
 							lastZ = acceleration.z;
 							lastTime = currentTime;
+						}else{
+							statusElement.textContent = `Motion detected, but too soon.`; // 显示文本
 						}
 					}
 
@@ -146,7 +156,7 @@ https://zimjs.com/zapps
         
     </head>
     <body>
-
+		<div id="status">Waiting for motion...</div> <!-- 状态信息显示在这里 -->
         <!-- <script src="/socket.io/socket.io.js"></script> -->
     <script>
     //   const socket = io('http://localhost:3000');
