@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Shake</title>
+        <title>成功了但是html页面被canvas画布遮挡</title>
 
 <!--
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -55,23 +55,6 @@ https://zimjs.com/zapps
 	new PWA(runZapp);
 	function runZapp() {
 	                // Given F, S, W, H or frame, stage, stageW, stageH   
-					// 创建状态标签
-					let statusLabel = new Label({
-						text: "Waiting for motion...",
-						size: 30,
-						color: "white",
-						align: "center"
-					}).center();
-
-					// 创建请求权限按钮
-					let requestButton = new Button({
-						label: "请求运动传感器权限",
-						width: 200,
-						height: 60,
-						backgroundColor: "orange",
-						rollBackgroundColor: "orangered",
-						corner: 10
-					}).center().mov(0, 100); // 位置调整
 
 					// 检测晃动的阈值
 					const shakeThreshold = 25;
@@ -84,8 +67,8 @@ https://zimjs.com/zapps
 					let lastY = null;
 					let lastZ = null;
 
-				requestButton.on("click", function() {
-					statusLabel.text = "clicked";
+				document.getElementById('requestPermission').addEventListener('click', function() {
+					document.getElementById('status').textContent = "clicked";
 					if (typeof DeviceMotionEvent.requestPermission === 'function') {
 						// 这是iOS 13+ 设备
 						DeviceMotionEvent.requestPermission()
@@ -93,25 +76,26 @@ https://zimjs.com/zapps
 								if (permissionState === 'granted') {
 									window.addEventListener('devicemotion', handleMotion);
 									console.log("devicemotion listener added"); // 确认监听器已添加
-									statusLabel.text = "Permission granted.";
+									document.getElementById('status').textContent = "Permission granted.";
 								} else {
 									alert("没有权限访问运动传感器");
-									statusLabel.text = "Permission denied.";
+									document.getElementById('status').textContent = "Permission denied.";
 								}
 							})
 							.catch(error=>{
-								statusLabel.text = `Permission error: ${error}`;
+								document.getElementById('status').textContent = `Permission error: ${error}`;
 							});
 					} else {
 						// 非iOS 13+ 设备
 						window.addEventListener('devicemotion', handleMotion);
 						console.log("devicemotion listener added on non-iOS 13+ device");
-						statusLabel.text = "Permission API not needed or not supported.";
+						document.getElementById('status').textContent = "Permission API not needed or not supported.";
 					}
 
 					function handleMotion(event) {
 						console.log("Handling devicemotion event");
-						
+						const statusElement = document.getElementById('status'); // 确保你的HTML中有这个元素
+
 						const currentTime = Date.now();		
 
 						if ((currentTime - lastTime) > 100) {
@@ -130,9 +114,9 @@ https://zimjs.com/zapps
 							// 如果晃动强度足够大，则更改背景颜色
 							if (delta > shakeThreshold) {
 								changeBackgroundColor();
-								statusLabel.text = "Shake detected! Color changed"; // 显示文本
+								statusElement.textContent = `Shake detected! Color changed.`; // 显示文本
 							}else{
-								statusLabel.text = "Shake detected! But not strong enough"; // 显示文本
+								statusElement.textContent = `Shake detected! But not strong enough.`; // 显示文本
 							}
 
 							// 更新最后一次的加速度值和时间
@@ -141,7 +125,7 @@ https://zimjs.com/zapps
 							lastZ = acceleration.z;
 							lastTime = currentTime;
 						}else{
-							statusLabel.text = "Motion detected, but too soon"; // 显示文本
+							statusElement.textContent = `Motion detected, but too soon.`; // 显示文本
 						}
 					}
 
@@ -160,6 +144,8 @@ https://zimjs.com/zapps
         
     </head>
     <body>
+		<div id="status">Waiting for motion...</div> <!-- 状态信息显示在这里 -->
+		<button id="requestPermission">请求运动传感器权限</button> <!-- 点击这个按钮来请求权限 -->
         <!-- <script src="/socket.io/socket.io.js"></script> -->
     <script>
     //   const socket = io('http://localhost:3000');
