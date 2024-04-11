@@ -67,6 +67,8 @@ https://zimjs.com/zapps
 					let lastY = null;
 					let lastZ = null;
 
+				document.getElementById('requestPermission').addEventListener('click', function() {
+					document.getElementById('status').textContent = "clicked";
 					if (typeof DeviceMotionEvent.requestPermission === 'function') {
 						// 这是iOS 13+ 设备
 						DeviceMotionEvent.requestPermission()
@@ -132,6 +134,7 @@ https://zimjs.com/zapps
 						const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
 						document.body.style.backgroundColor = randomColor;
 					}
+				});
 	  
 	} // end runZapp
 
@@ -142,6 +145,7 @@ https://zimjs.com/zapps
     </head>
     <body>
 		<div id="status">Waiting for motion...</div> <!-- 状态信息显示在这里 -->
+		<button id="requestPermission">请求运动传感器权限</button> <!-- 点击这个按钮来请求权限 -->
         <!-- <script src="/socket.io/socket.io.js"></script> -->
     <script>
     //   const socket = io('http://localhost:3000');
