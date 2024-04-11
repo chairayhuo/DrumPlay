@@ -85,6 +85,12 @@ https://zimjs.com/zapps
 					let lastZ = null;
 
 				requestButton.on("click", function() {
+					if (navigator.vibrate) {
+						// 震动500毫秒
+						navigator.vibrate(500);
+					} else {
+						alert("Vibration not supported");
+					}
 					if (typeof DeviceMotionEvent.requestPermission === 'function') {
 						// 这是iOS 13+ 设备
 						DeviceMotionEvent.requestPermission()
@@ -130,6 +136,12 @@ https://zimjs.com/zapps
 							if (delta > shakeThreshold) {
 								changeBackgroundColor();
 								statusLabel.text = "Shake detected! Color changed"; // 显示文本
+								new Label({
+									text: "Shake detected!",
+									size: 30,
+									color: "white",
+									align: "center"
+								}).center().mov(0, 100);
 							}else{
 								statusLabel.text = "Shake detected! But not strong enough"; // 显示文本
 							}
