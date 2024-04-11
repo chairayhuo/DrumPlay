@@ -93,6 +93,7 @@ https://zimjs.com/zapps
 					// } else {
 					// 	alert("Vibration not supported");
 					// }
+					drumSound.play();
 					if (typeof DeviceMotionEvent.requestPermission === 'function') {
 						// 这是iOS 13+ 设备
 						DeviceMotionEvent.requestPermission()
