@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Shake</title>
+        <title>Shake!!!</title>
 
 <!--
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -65,8 +65,8 @@ https://zimjs.com/zapps
 
 					// 创建请求权限按钮
 					let requestButton = new Button({
-						label: "请求运动传感器权限",
-						width: 200,
+						label: "PERMISSION",
+						width: 250,
 						height: 60,
 						backgroundColor: "orange",
 						rollBackgroundColor: "orangered",
@@ -85,7 +85,6 @@ https://zimjs.com/zapps
 					let lastZ = null;
 
 				requestButton.on("click", function() {
-					statusLabel.text = "clicked";
 					if (typeof DeviceMotionEvent.requestPermission === 'function') {
 						// 这是iOS 13+ 设备
 						DeviceMotionEvent.requestPermission()
@@ -148,9 +147,9 @@ https://zimjs.com/zapps
 					function changeBackgroundColor() {
 						// 随机生成颜色
 						const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
-						// F.color = randomColor;
-						let background = new Rectangle(W, H, "white").addTo();
-						background.color = randomColor;
+						F.color = randomColor;
+						// let background = new Rectangle(W, H, "white").addTo();
+						// background.color = randomColor;
 					}
 				});
 	  
