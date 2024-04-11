@@ -7,9 +7,9 @@ var cacheName = 'zim_pwa_DrumPlay';
 var filesToCache = [
   './',
   'index.html',
-  './libraries/zim_min.js',
+  // './libraries/zim_min.js',
   './libraries/createjs.js',
-  './libraries/game.js',
+  // './libraries/game.js',
   './libraries/socket.io.js',
   './libraries/socket.js',
   'assets/drum.png'
