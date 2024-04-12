@@ -3,7 +3,7 @@
 // Please check to see all files have been listed with local links
 // (Do not worry about icon files) 
 
-var cacheName = 'zim_pwa_DrumPlay';
+var cacheName = 'zim_pwa_ROCK!!!';
 var filesToCache = [
   './',
   'index.html',
