@@ -65,6 +65,7 @@ https://zimjs.com/zapps
                     	font:"Salsa"
                 	}
 					const chanting = new Aud("chanting.m4a");
+					let chantingFinished = true;
 
 					let statusLabel = new Label({
 						text: "",
@@ -164,8 +165,6 @@ https://zimjs.com/zapps
 
 							// 计算总的移动量（用以判断是否晃动）
 							const delta = deltaX + deltaY + deltaZ;
-
-							let chantingFinished = true;
 
 							// 如果晃动强度足够大，则更改背景颜色
 							if (delta > shakeThreshold) {
