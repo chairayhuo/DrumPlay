@@ -62,6 +62,13 @@ https://zimjs.com/zapps
 					// 创建状态标签
 					const chanting = new Aud("chanting.m4a");
 
+					let statusLabel = new Label({
+						text: "",
+						size: 30,
+						color: "white",
+						align: "center"
+					}).pos(0,100,CENTER,TOP);
+
 					// 创建请求权限按钮
 					let requestButton = new Button({
 						label: "PERMISSION",
@@ -121,10 +128,8 @@ https://zimjs.com/zapps
 								if (permissionState === 'granted') {
 									window.addEventListener('devicemotion', handleMotion);
 									console.log("devicemotion listener added"); // 确认监听器已添加
-									statusLabel.text = "Permission granted.";
 								} else {
 									alert("没有权限访问运动传感器");
-									statusLabel.text = "Permission denied.";
 								}
 							})
 							.catch(error=>{
