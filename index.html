@@ -46,7 +46,7 @@ https://zimjs.com/zapps
 
         <script type="module">
             import zim from "https://zimjs.org/cdn/015/zim_game";
-            const assets = ["drum.mp3", "https://fonts.googleapis.com/css2?family=Salsa"];
+            const assets = ["chanting.m4a", "https://fonts.googleapis.com/css2?family=Salsa"];
             const path = "assets/";
             new Frame(FIT, 430, 932, dark, darker, ready, assets, path);
             function ready() {
@@ -60,14 +60,7 @@ https://zimjs.com/zapps
 	function runZapp() {
 	                // Given F, S, W, H or frame, stage, stageW, stageH   
 					// 创建状态标签
-					const drumSound = new Aud("drum.mp3");
-					
-					let statusLabel = new Label({
-						text: "Waiting for motion...",
-						size: 30,
-						color: "white",
-						align: "center"
-					}).center();
+					const chanting = new Aud("chanting.m4a");
 
 					// 创建请求权限按钮
 					let requestButton = new Button({
@@ -97,7 +90,30 @@ https://zimjs.com/zapps
 					// } else {
 					// 	alert("Vibration not supported");
 					// }
-					drumSound.play();
+
+					requestButton.removeFrom();
+
+					let rock = new Label({
+						text: "ROCK",
+						size: 50,
+						color: "white",
+						align: "center"
+					}).pos(0,100,CENTER,TOP);
+
+					let n = new Label({
+						text: "'N'",
+						size: 50,
+						color: "white",
+						align: "center"
+					}).center();
+
+					let roll = new Label({
+						text: "ROLL!",
+						size: 50,
+						color: "white",
+						align: "center"
+					}).pos(0,100,CENTER,TOP);
+
 					if (typeof DeviceMotionEvent.requestPermission === 'function') {
 						// 这是iOS 13+ 设备
 						DeviceMotionEvent.requestPermission()
@@ -139,11 +155,23 @@ https://zimjs.com/zapps
 							// 计算总的移动量（用以判断是否晃动）
 							const delta = deltaX + deltaY + deltaZ;
 
+							let chantingFinished = true;
+
 							// 如果晃动强度足够大，则更改背景颜色
 							if (delta > shakeThreshold) {
 								changeBackgroundColor();
-								drumSound.play();
-								statusLabel.text = "Shake detected! Color changed"; // 显示文本
+								if (chantingFinished) {
+									// 如果chanting音频已经播放完成，则重新播放
+									chanting.play();
+								}
+								// 更新chantingFinished标志
+								chantingFinished = false;
+
+								// 监听chanting音频结束事件
+								chanting.on("end", function() {
+									// 标记chanting音频已经播放完成
+									chantingFinished = true;
+								});
 								new Label({
 									text: "Shake detected!",
 									size: 30,
@@ -151,7 +179,7 @@ https://zimjs.com/zapps
 									align: "center"
 								}).center().mov(0, 100);
 							}else{
-								statusLabel.text = "Shake detected! But not strong enough"; // 显示文本
+								statusLabel.text = "Shake detected! But not strong enough";
 							}
 
 							// 更新最后一次的加速度值和时间
