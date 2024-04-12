@@ -85,26 +85,7 @@ https://zimjs.com/zapps
 					}).center().mov(0, 200); // 位置调整
 
 
-					let rock = new Label({
-						text: "ROCK",
-						size: 100,
-						color: "white",
-						align: "center"
-					}).pos(0,100,CENTER,TOP);
 
-					let n = new Label({
-						text: "'N'",
-						size: 100,
-						color: "white",
-						align: "center"
-					}).center();
-
-					let roll = new Label({
-						text: "ROLL!",
-						size: 100,
-						color: "white",
-						align: "center"
-					}).pos(0,100,CENTER,BOTTOM);
 
 					// 检测晃动的阈值
 					const shakeThreshold = 25;
@@ -126,6 +107,27 @@ https://zimjs.com/zapps
 					// }
 
 					requestButton.removeFrom();
+
+					let rock = new Label({
+						text: "ROCK",
+						size: 100,
+						color: "white",
+						align: "center"
+					}).pos(0,100,CENTER,TOP);
+
+					let n = new Label({
+						text: "'N'",
+						size: 100,
+						color: "white",
+						align: "center"
+					}).center();
+
+					let roll = new Label({
+						text: "ROLL!",
+						size: 100,
+						color: "white",
+						align: "center"
+					}).pos(0,100,CENTER,BOTTOM);
 
 					if (typeof DeviceMotionEvent.requestPermission === 'function') {
 						// 这是iOS 13+ 设备
