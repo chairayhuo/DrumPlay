@@ -82,30 +82,8 @@ https://zimjs.com/zapps
 						backgroundColor: "orange",
 						rollBackgroundColor: "orangered",
 						corner: 10
-					}).center().mov(0, 100); // 位置调整
+					}).center().mov(0, 300); // 位置调整
 
-					// 检测晃动的阈值
-					const shakeThreshold = 25;
-
-					// 上次检测的时间
-					let lastTime = 0;
-
-					// 上次检测的加速度值
-					let lastX = null;
-					let lastY = null;
-					let lastZ = null;
-
-				requestButton.on("click", function() {
-					// if (navigator.vibrate) {
-					// 	// 震动500毫秒
-					// 	navigator.vibrate(500);
-					// } else {
-					// 	alert("Vibration not supported");
-					// }
-
-					requestButton.removeFrom();
-					chanting.play({volume: 1, loop: false});
-					drum.play({volume: 1, loop: false});
 
 					let rock = new Label({
 						text: "ROCK",
@@ -127,6 +105,27 @@ https://zimjs.com/zapps
 						color: "white",
 						align: "center"
 					}).pos(0,100,CENTER,BOTTOM);
+
+					// 检测晃动的阈值
+					const shakeThreshold = 25;
+
+					// 上次检测的时间
+					let lastTime = 0;
+
+					// 上次检测的加速度值
+					let lastX = null;
+					let lastY = null;
+					let lastZ = null;
+
+				requestButton.on("click", function() {
+					// if (navigator.vibrate) {
+					// 	// 震动500毫秒
+					// 	navigator.vibrate(500);
+					// } else {
+					// 	alert("Vibration not supported");
+					// }
+
+					requestButton.removeFrom();
 
 					if (typeof DeviceMotionEvent.requestPermission === 'function') {
 						// 这是iOS 13+ 设备
