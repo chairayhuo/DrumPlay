@@ -171,16 +171,15 @@ https://zimjs.com/zapps
 								if (chantingFinished) {
 									// 如果chanting音频已经播放完成，则重新播放
 									chanting.play({volume: 1, loop: false});
-								}
-								// 更新chantingFinished标志
-								chantingFinished = false;
+									chantingFinished = false;
+								}								
 
 								// 监听chanting音频结束事件
 								chanting.on("complete", function() {
 									// 在音频播放完成时执行的动作
 									chantingFinished = true; // 更改状态为已完成
 								});
-								
+
 								new Label({
 									text: "Shake detected!",
 									size: 30,
