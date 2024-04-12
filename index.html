@@ -125,8 +125,6 @@ https://zimjs.com/zapps
 					// 	alert("Vibration not supported");
 					// }
 
-					requestButton.removeFrom();
-
 					if (typeof DeviceMotionEvent.requestPermission === 'function') {
 						// 这是iOS 13+ 设备
 						DeviceMotionEvent.requestPermission()
@@ -134,6 +132,7 @@ https://zimjs.com/zapps
 								if (permissionState === 'granted') {
 									window.addEventListener('devicemotion', handleMotion);
 									console.log("devicemotion listener added"); // 确认监听器已添加
+									requestButton.removeFrom();
 								} else {
 									alert("没有权限访问运动传感器");
 								}
@@ -177,10 +176,11 @@ https://zimjs.com/zapps
 								chantingFinished = false;
 
 								// 监听chanting音频结束事件
-								chanting.on("end", function() {
-									// 标记chanting音频已经播放完成
-									chantingFinished = true;
+								chanting.on("complete", function() {
+									// 在音频播放完成时执行的动作
+									chantingFinished = true; // 更改状态为已完成
 								});
+								
 								new Label({
 									text: "Shake detected!",
 									size: 30,
