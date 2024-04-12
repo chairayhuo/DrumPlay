@@ -66,6 +66,11 @@ https://zimjs.com/zapps
                 	}
 					const chanting = new Aud("chanting.m4a");
 					let chantingFinished = true;
+					// 监听chanting音频结束事件
+					chanting.on("complete", function() {
+						// 在音频播放完成时执行的动作
+						chantingFinished = true; // 更改状态为已完成
+					});
 
 					let statusLabel = new Label({
 						text: "",
@@ -173,12 +178,6 @@ https://zimjs.com/zapps
 									chanting.play({volume: 1, loop: false});
 									chantingFinished = false;
 								}								
-
-								// 监听chanting音频结束事件
-								chanting.on("complete", function() {
-									// 在音频播放完成时执行的动作
-									chantingFinished = true; // 更改状态为已完成
-								});
 
 								new Label({
 									text: "Shake detected!",
