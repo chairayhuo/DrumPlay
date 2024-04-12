@@ -65,6 +65,7 @@ https://zimjs.com/zapps
                     	font:"Salsa"
                 	}
 					const chanting = new Aud("chanting.m4a");
+					const drum = new Aud("drum.mp3");
 
 					let statusLabel = new Label({
 						text: "",
@@ -103,6 +104,8 @@ https://zimjs.com/zapps
 					// }
 
 					requestButton.removeFrom();
+					chanting.play({volume: 1, loop: false});
+					drum.play({volume: 1, loop: false});
 
 					let rock = new Label({
 						text: "ROCK",
