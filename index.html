@@ -60,6 +60,10 @@ https://zimjs.com/zapps
 	function runZapp() {
 	                // Given F, S, W, H or frame, stage, stageW, stageH   
 					// 创建状态标签
+
+					STYLE = {
+                    	font:"Salsa"
+                	}
 					const chanting = new Aud("chanting.m4a");
 
 					let statusLabel = new Label({
@@ -102,24 +106,24 @@ https://zimjs.com/zapps
 
 					let rock = new Label({
 						text: "ROCK",
-						size: 50,
+						size: 100,
 						color: "white",
 						align: "center"
 					}).pos(0,100,CENTER,TOP);
 
 					let n = new Label({
 						text: "'N'",
-						size: 50,
+						size: 100,
 						color: "white",
 						align: "center"
 					}).center();
 
 					let roll = new Label({
 						text: "ROLL!",
-						size: 50,
+						size: 100,
 						color: "white",
 						align: "center"
-					}).pos(0,100,CENTER,TOP);
+					}).pos(0,100,CENTER,BOTTOM);
 
 					if (typeof DeviceMotionEvent.requestPermission === 'function') {
 						// 这是iOS 13+ 设备
@@ -167,7 +171,7 @@ https://zimjs.com/zapps
 								changeBackgroundColor();
 								if (chantingFinished) {
 									// 如果chanting音频已经播放完成，则重新播放
-									chanting.play();
+									chanting.play({volume: 1, loop: false});
 								}
 								// 更新chantingFinished标志
 								chantingFinished = false;
